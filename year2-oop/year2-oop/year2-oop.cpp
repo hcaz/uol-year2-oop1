@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <sstream> // stringstream
 #include <iostream> // cout, cerr
 #include <fstream> // ifstream
