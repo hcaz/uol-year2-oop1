@@ -3,6 +3,7 @@
 #include <iostream> // cout, cerr
 #include <fstream> // ifstream
 #include <istream>
+#include <math.h>
 
 using namespace std;
 
@@ -46,10 +47,16 @@ int main()
 
 	if (input_data != 0) {
 		int count = 0;
-		for (int i = 0; i <= M; i++) {
-			for (int i = 0; i <= M; i++) {
+		for (int y = 0; y <= M; y++) {
+			for (int x = 0; x <= M; x++) {
 				count++;
-				//cout << input_data[count] << " ";
+				int currentX = 0;
+				int currentY = 0;
+				if (x > 16) { currentX = floor(x / chunk); }
+				if (y > 16) { currentY = floor(y / chunk); }
+				int localX = x - (currentX * chunk));
+				int localY = y - (currentY * chunk);
+				cout << currentX << "(" << localX << ")" << ":" << currentY << "(" << localY << ")" << " - " << input_data[count] << endl;
 			}
 			cout << endl;
 		}
