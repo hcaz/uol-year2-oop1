@@ -54,11 +54,11 @@ int main()
 				int currentY = 0;
 				if (x > 16) { currentX = floor(x / chunk); }
 				if (y > 16) { currentY = floor(y / chunk); }
-				int localX = x - (currentX * chunk));
+				int localX = x - (currentX * chunk);
 				int localY = y - (currentY * chunk);
-				cout << currentX << "(" << localX << ")" << ":" << currentY << "(" << localY << ")" << " - " << input_data[count] << endl;
+				//cout << currentX << "(" << localX << ")" << ":" << currentY << "(" << localY << ")" << " - " << input_data[count] << endl;
 			}
-			cout << endl;
+			cout << "Line " << y << " done." << endl;
 		}
 		//Get each chunk and add it to matrix
 		//Go through each chuk and compare it with another
