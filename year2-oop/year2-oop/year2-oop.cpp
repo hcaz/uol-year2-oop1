@@ -42,6 +42,8 @@ int main()
 	char* inputFileName = "shuffled_logo.txt";
 	input_data = readTXT(inputFileName, M, N);
 
+	cout << input_data << endl;
+
 	/*
 
 	CODE TO PROCESS input_data SHOULD BE WRITTEN HERE!! (after removing the comments:)
@@ -55,6 +57,8 @@ int main()
 	WritePGM(outputFileName, input_data, M, N, Q);
 
 	delete[] input_data;
+
+	getchar();
 
 	return 0;
 }
@@ -89,7 +93,7 @@ double* readTXT(char *fileName, int sizeR, int sizeC)
 void WritePGM(char *filename, double *data, int sizeR, int sizeC, int Q)
 {
 
-	int i, j;
+	int i;
 	unsigned char *image;
 	ofstream myfile;
 
