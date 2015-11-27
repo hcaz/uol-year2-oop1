@@ -29,34 +29,44 @@ int main()
 	//e.g. for task 1: logo_with_noise and logo_shuffled, M = 512, N = 512
 
 
-	int M = 512; int N = 512;
+	int M = 512; int chunk = 16;
+	int chunkSize = M / chunk;
 	// input_data is a pointer to a 1D array of M*N doubles stored in heap. Memory allocation is performed 
 	// inside readTXT. readTXT will read an image (in .pgm format) of size MxN and will  store the result in input_data.
 	// once you're done with data DO NOT forget to delete the memory as in the end of this main() function
 	double* input_data = 0;
 
 	cout << endl;
-	cout << "Data from text file -------------------------------------------" << endl;
+	cout << "Image size : " << M << "x" << M << " Chunk size : " << chunkSize << "x" << chunkSize << endl;
+	cout << "Starting -------------------------------------------" << endl;
 
 	// .pgm image is stored in inputFileName, change the path in your program appropriately
 	char* inputFileName = "shuffled_logo.txt";
-	input_data = readTXT(inputFileName, M, N);
+	input_data = readTXT(inputFileName, M, M);
 
-	cout << input_data << endl;
+	if (input_data != 0) {
+		int count = 0;
+		for (int i = 0; i <= M; i++) {
+			for (int i = 0; i <= M; i++) {
+				count++;
+				//cout << input_data[count] << " ";
+			}
+			cout << endl;
+		}
+		//Get each chunk and add it to matrix
+		//Go through each chuk and compare it with another
+		//Move if they match
 
-	/*
+		// writes data back to .pgm file stored in outputFileName
+		char* outputFileName = "logo_restored.pgm";
+		// Use Q = 255 for greyscale images and 1 for binary images.
+		int Q = 255;
+		WritePGM(outputFileName, input_data, M, M, Q);
 
-	CODE TO PROCESS input_data SHOULD BE WRITTEN HERE!! (after removing the comments:)
+		delete[] input_data;
+	}
 
-	*/
-
-	// writes data back to .pgm file stored in outputFileName
-	char* outputFileName = "logo_restored.pgm";
-	// Use Q = 255 for greyscale images and 1 for binary images.
-	int Q = 255;
-	WritePGM(outputFileName, input_data, M, N, Q);
-
-	delete[] input_data;
+	cout << "Done, press any key -------------------------------------------" << endl;
 
 	getchar();
 
@@ -77,16 +87,19 @@ double* readTXT(char *fileName, int sizeR, int sizeC)
 		{
 			if (i>sizeR*sizeC - 1) break;
 			myfile >> *(data + i);
-			// cout << *(data+i) << ' '; // This line display the converted data on the screen, you may comment it out. 
+			//cout << *(data+i) << ' '; // This line display the converted data on the screen, you may comment it out. 
 			i++;
 		}
 		myfile.close();
+
+		return data;
 	}
+	else
+	{
+		cout << "Unable to open file" << fileName << endl;
 
-	else cout << "Unable to open file";
-	//cout << i;
-
-	return data;
+		return 0;
+	}
 }
 
 // convert data from double to .pgm stored in filename
