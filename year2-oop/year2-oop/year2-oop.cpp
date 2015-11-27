@@ -1,11 +1,10 @@
 #include "stdafx.h"
+#include "Matrix.h"
 #include <sstream> // stringstream
 #include <iostream> // cout, cerr
 #include <fstream> // ifstream
 #include <istream>
 #include <math.h>
-
-using namespace std;
 
 // Input data are provided in .txt format and can be converted to .pgm files for visualization
 // Download (free) ImageJ for plotting images in .pgm format
@@ -56,6 +55,7 @@ int main()
 				if (y > 16) { currentY = floor(y / chunk); }
 				int localX = x - (currentX * chunk);
 				int localY = y - (currentY * chunk);
+				Matrix working(1, 1, input_data[count]);
 				//cout << currentX << "(" << localX << ")" << ":" << currentY << "(" << localY << ")" << " - " << input_data[count] << endl;
 			}
 			cout << "Line " << y << " done." << endl;
@@ -146,4 +146,25 @@ void WritePGM(char *filename, double *data, int sizeR, int sizeC, int Q)
 
 	delete[] image;
 
+}
+
+Matrix add(Matrix& one, Matrix& two)
+{
+	//create 'new' data array on heap
+	double* data = new double[one.getM()*one.getN()];
+
+	//fill that data array
+	for (int x = 0; x < (one.getM()*one.getN()); x++)
+	{
+		data[x] = one.getData()[x] + two.getData()[x];
+	}
+
+	//create new Matrix object with the row/column/data information
+	Matrix temp(one.getM(), one.getN(), data);
+	//delete 'data' array
+	//remember: because of 'deep copy' we can delete this array, as it has been 'deep copied'
+	//when the 'temp' object was created.
+	delete[] data;
+
+	return temp;
 }

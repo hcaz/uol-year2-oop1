@@ -1,5 +1,10 @@
-#include <iostream>
+#include "stdafx.h"
 #include "Matrix.h"
+#include <sstream> // stringstream
+#include <iostream> // cout, cerr
+#include <fstream> // ifstream
+#include <istream>
+#include <math.h>
 
 Matrix::Matrix()
 {
