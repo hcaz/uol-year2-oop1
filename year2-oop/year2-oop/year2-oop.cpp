@@ -6,6 +6,8 @@
 #include <istream>
 #include <math.h>
 
+using namespace std;
+
 // Input data are provided in .txt format and can be converted to .pgm files for visualization
 // Download (free) ImageJ for plotting images in .pgm format
 // http://rsb.info.nih.gov/ij/download.html
@@ -49,13 +51,13 @@ int main()
 		for (int y = 0; y <= M; y++) {
 			for (int x = 0; x <= M; x++) {
 				count++;
-				int currentX = 0;
-				int currentY = 0;
+				double currentX = 0;
+				double currentY = 0;
 				if (x > 16) { currentX = floor(x / chunk); }
 				if (y > 16) { currentY = floor(y / chunk); }
 				int localX = x - (currentX * chunk);
 				int localY = y - (currentY * chunk);
-				Matrix working(1, 1, input_data[count]);
+				//Matrix working(1, 1, input_data[count]);
 				//cout << currentX << "(" << localX << ")" << ":" << currentY << "(" << localY << ")" << " - " << input_data[count] << endl;
 			}
 			cout << "Line " << y << " done." << endl;

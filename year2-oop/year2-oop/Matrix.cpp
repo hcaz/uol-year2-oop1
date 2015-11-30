@@ -157,9 +157,6 @@ double* Matrix::getData()
 	return _data;
 }
 
-
-
-
 Matrix::~Matrix()
 {
 	std::cout << "Destructor" << std::endl;
