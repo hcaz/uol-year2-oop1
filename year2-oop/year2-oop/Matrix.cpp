@@ -32,10 +32,21 @@ Matrix::Matrix(int sizeR, int sizeC, double* input_data)
 		_data[x] = input_data[x];
 	}
 }
+Matrix::Matrix(int sizeR, int sizeC, Matrix* input_data)
+{
+	_M = sizeR;
+	_N = sizeC;
+
+	_data2 = new Matrix[_M*_N];
+
+	for (int x = 0; x < _M*_N; x++)
+	{
+		_data2[x] = input_data[x];
+	}
+}
 //copy constructor
 Matrix::Matrix(const Matrix& m)
 {
-	std::cout << "copy constructor" << std::endl;
 	_M = m._M;
 	_N = m._N;
 
@@ -50,7 +61,6 @@ Matrix::Matrix(const Matrix& m)
 //operator overloads
 Matrix Matrix::operator+(const Matrix& other)
 {
-	std::cout << "Operator '+' overload" << std::endl;
 	Matrix temp;
 	temp._M = other._M;
 	temp._N = other._N;
@@ -67,7 +77,6 @@ Matrix Matrix::operator+(const Matrix& other)
 
 Matrix Matrix::operator=(const Matrix& other)
 {
-	std::cout << "Operator '=' overload" << std::endl;
 	//delete existing _data information - as we are going to replace it with 'other._data'
 	delete[] _data;
 	_M = other._M;
@@ -100,7 +109,24 @@ int Matrix::getN()
 double Matrix::get(int i, int j)
 {
 	return _data[(i*_N) + j];
+}
 
+Matrix Matrix::getMatrix(int i, int j)
+{
+	return _data2[(i*_N) + j];
+}
+
+double Matrix::update(int i, int j, int x, int y, int value)
+{
+	Matrix tmp = _data2[(i*_N) + j];
+	tmp.update(x, y, value);
+	_data2[(i*_N) + j] = tmp;
+	return true;
+}
+double Matrix::update(int i, int j, int value)
+{
+	_data[(i*_N) + j] = value;
+	return true;
 }
 
 Matrix Matrix::getBlock(int start_row, int end_row, int start_column, int end_column)
@@ -159,6 +185,5 @@ double* Matrix::getData()
 
 Matrix::~Matrix()
 {
-	std::cout << "Destructor" << std::endl;
 	delete[] _data;
 }

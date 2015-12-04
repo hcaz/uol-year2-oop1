@@ -5,6 +5,7 @@
 #include <fstream> // ifstream
 #include <istream>
 #include <math.h>
+#include "windows.h"
 
 using namespace std;
 
@@ -37,6 +38,7 @@ int main()
 	// inside readTXT. readTXT will read an image (in .pgm format) of size MxN and will  store the result in input_data.
 	// once you're done with data DO NOT forget to delete the memory as in the end of this main() function
 	double* input_data = 0;
+	double* input_dataUnshuffles = 0;
 
 	cout << endl;
 	cout << "Image size : " << M << "x" << M << " Chunk size : " << chunkSize << "x" << chunkSize << endl;
@@ -46,25 +48,47 @@ int main()
 	char* inputFileName = "shuffled_logo.txt";
 	input_data = readTXT(inputFileName, M, M);
 
+	char* inputFileNameUnshuffles = "unshuffled_logo_noisy.txt";
+	input_dataUnshuffles = readTXT(inputFileNameUnshuffles, M, M);
+
 	if (input_data != 0) {
+		//Create matrix
+		int chunks = chunk * chunk;
+		int chunkTotal = chunkSize * chunkSize;
+		Matrix* dataTotal = new Matrix[chunks];
+		double* data = new double[chunkTotal];
+		for (int y = 0; y < chunkTotal; y++)
+		{
+			data[y] = 0;
+		}
+		for (int x = 0; x < chunks; x++)
+		{
+			Matrix shuffledTMP(chunkSize, chunkSize, data);
+			dataTotal[x] = shuffledTMP;
+		}
+		Matrix shuffled(chunk, chunk, dataTotal);
+		Matrix noisey(chunk, chunk, dataTotal);
+		delete[] data;
+		delete[] dataTotal;
+		//go through data
 		int count = 0;
-		for (int y = 0; y <= M; y++) {
-			for (int x = 0; x <= M; x++) {
-				count++;
+		for (int y = 0; y < M; y++) {
+			for (int x = 0; x < M; x++) {
 				double currentX = 0;
 				double currentY = 0;
-				if (x > 16) { currentX = floor(x / chunk); }
-				if (y > 16) { currentY = floor(y / chunk); }
-				int localX = x - (currentX * chunk);
-				int localY = y - (currentY * chunk);
-				//Matrix working(1, 1, input_data[count]);
-				//cout << currentX << "(" << localX << ")" << ":" << currentY << "(" << localY << ")" << " - " << input_data[count] << endl;
+				if (x > 16) { currentX = floor(x / chunkSize); }
+				if (y > 16) { currentY = floor(y / chunkSize); }
+				int localX = x - (currentX * chunkSize);
+				int localY = y - (currentY * chunkSize);
+				//get current chunk in array
+				shuffled.update(currentX, currentY, localX, localY, input_data[count]);
+				count++;
 			}
-			cout << "Line " << y << " done." << endl;
 		}
-		//Get each chunk and add it to matrix
-		//Go through each chuk and compare it with another
-		//Move if they match
+
+		Matrix tmp = shuffled.getMatrix(1, 1);
+		int rndVal = tmp.get(1, 1);
+		cout << endl << endl << "=========" << rndVal << "=========" << endl << endl;
 
 		// writes data back to .pgm file stored in outputFileName
 		char* outputFileName = "logo_restored.pgm";
@@ -73,11 +97,16 @@ int main()
 		WritePGM(outputFileName, input_data, M, M, Q);
 
 		delete[] input_data;
+		delete[] input_dataUnshuffles;
 	}
 
-	cout << "Done, press any key -------------------------------------------" << endl;
+	cout << "Done, type `y` to open image, `n` to exit (and press enter)  -------------------------------------------" << endl;
 
-	getchar();
+	char option = getchar();
+
+	if (option == 'y') {
+		ShellExecute(0, L"open", L"logo_restored.pgm", 0, 0, SW_SHOW);
+	}
 
 	return 0;
 }
@@ -96,6 +125,7 @@ double* readTXT(char *fileName, int sizeR, int sizeC)
 		{
 			if (i>sizeR*sizeC - 1) break;
 			myfile >> *(data + i);
+		
 			//cout << *(data+i) << ' '; // This line display the converted data on the screen, you may comment it out. 
 			i++;
 		}
@@ -148,25 +178,4 @@ void WritePGM(char *filename, double *data, int sizeR, int sizeC, int Q)
 
 	delete[] image;
 
-}
-
-Matrix add(Matrix& one, Matrix& two)
-{
-	//create 'new' data array on heap
-	double* data = new double[one.getM()*one.getN()];
-
-	//fill that data array
-	for (int x = 0; x < (one.getM()*one.getN()); x++)
-	{
-		data[x] = one.getData()[x] + two.getData()[x];
-	}
-
-	//create new Matrix object with the row/column/data information
-	Matrix temp(one.getM(), one.getN(), data);
-	//delete 'data' array
-	//remember: because of 'deep copy' we can delete this array, as it has been 'deep copied'
-	//when the 'temp' object was created.
-	delete[] data;
-
-	return temp;
 }
