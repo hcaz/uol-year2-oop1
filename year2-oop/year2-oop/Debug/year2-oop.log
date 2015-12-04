@@ -1,19 +1,25 @@
-﻿Build started 04/12/2015 23:12:45.
+﻿Build started 04/12/2015 23:50:08.
      1>Project "C:\Users\micro\Documents\GitHub\uol-year2-oop1\year2-oop\year2-oop\year2-oop.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Debug\year2-oop.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt "year2-oop.cpp"
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Debug\year2-oop.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Matrix.cpp "year2-oop.cpp"
+     1>cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+         Matrix.cpp
          year2-oop.cpp
-     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(81): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(82): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(84): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(90): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\micro\Documents\GitHub\uol-year2-oop1\year2-oop\Debug\year2-oop.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\micro\Documents\GitHub\uol-year2-oop1\year2-oop\Debug\year2-oop.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\micro\Documents\GitHub\uol-year2-oop1\year2-oop\Debug\year2-oop.lib" /MACHINE:X86 Debug\Matrix.obj
-         Debug\stdafx.obj
-         "Debug\year2-oop.obj"
-         year2-oop.vcxproj -> C:\Users\micro\Documents\GitHub\uol-year2-oop1\year2-oop\Debug\year2-oop.exe
-     1>Done Building Project "C:\Users\micro\Documents\GitHub\uol-year2-oop1\year2-oop\year2-oop\year2-oop.vcxproj" (Build target(s)).
+     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(88): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(89): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(91): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(105): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(106): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(108): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(115): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(123): error C2664: 'void WritePGMMatrix(char *,Matrix *,int,int,int)': cannot convert argument 2 from 'Matrix' to 'Matrix *'
+         c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(123): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+     1>c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(171): error C2228: left of '.getM' must have class/struct/union
+         c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(171): note: type is 'Matrix *'
+         c:\users\micro\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(171): note: did you intend to use '->' instead?
+         Generating Code...
+     1>Done Building Project "C:\Users\micro\Documents\GitHub\uol-year2-oop1\year2-oop\year2-oop\year2-oop.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:02.62
+Time Elapsed 00:00:01.90
