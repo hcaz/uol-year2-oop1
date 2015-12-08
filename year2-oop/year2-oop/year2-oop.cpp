@@ -23,11 +23,6 @@ double* readTXT(char *fileName, int sizeR, int sizeC);
 // Use Q = 255 for greyscale images and Q=1 for binary images.
 void WritePGM(char *filename, double *data, int sizeR, int sizeC, int Q);
 
-// Converts a 1D array of doubles of size R*C to .pgm image of R rows and C Columns 
-// and stores .pgm in filename
-// Use Q = 255 for greyscale images and Q=1 for binary images.
-void WritePGMMatrix(char *filename, Matrix *data, int sizeR, int sizeC, int Q);
-
 
 int main()
 {
@@ -44,10 +39,13 @@ int main()
 	// once you're done with data DO NOT forget to delete the memory as in the end of this main() function
 	double* input_data = 0;
 	double* input_dataUnshuffles = 0;
+	double* output_data = new double[M*M];
 
 	cout << endl;
+	cout << "###################################################################################################" << endl;
 	cout << "Image size : " << M << "x" << M << " Chunk size : " << chunkSize << "x" << chunkSize << endl;
-	cout << "Loading images -------------------------------------------" << endl;
+	cout << "###################################################################################################" << endl;
+	cout << "Loading images" << endl;
 
 	// .pgm image is stored in inputFileName, change the path in your program appropriately
 	char* inputFileName = "shuffled_logo.txt";
@@ -57,7 +55,8 @@ int main()
 	input_dataUnshuffles = readTXT(inputFileNameUnshuffles, M, M);
 
 	if (input_data != 0 && input_dataUnshuffles != 0) {
-		cout << "Creating matrix's -------------------------------------------" << endl;
+		cout << "###################################################################################################" << endl;
+		cout << "Creating matrix's" << endl;
 		//Create matrix
 		int chunks = chunk * chunk;
 		int chunkTotal = chunkSize * chunkSize;
@@ -76,7 +75,8 @@ int main()
 		Matrix noisey(chunk, chunk, dataTotal);
 		delete[] data;
 		delete[] dataTotal;
-		cout << "Populating shuffled matrix -------------------------------------------" << endl;
+		cout << "###################################################################################################" << endl;
+		cout << "Populating shuffled matrix" << endl;
 		//go through data
 		int count = 0;
 		for (int y = 0; y < M; y++) {
@@ -93,7 +93,8 @@ int main()
 			}
 		}
 		delete[] input_data;
-		cout << "Populating noisey matrix -------------------------------------------" << endl;
+		cout << "###################################################################################################" << endl;
+		cout << "Populating noisey matrix" << endl;
 		//go through data
 		count = 0;
 		for (int y = 0; y < M; y++) {
@@ -111,19 +112,38 @@ int main()
 		}
 		delete[] input_dataUnshuffles;
 
-		Matrix tmp = shuffled.getMatrix(1, 1);
-		int rndVal = tmp.get(1, 1);
-		cout << endl << endl << "=========" << rndVal << "=========" << endl << endl;
+		//SORT MATRIX
 
-		cout << "Write file -------------------------------------------" << endl;
+		cout << "###################################################################################################" << endl;
+		cout << "Converting sorted matrix to array" << endl;
+		count = 0;
+		for (int y = 0; y < M; y++) {
+			for (int x = 0; x < M; x++) {
+				double currentX = 0;
+				double currentY = 0;
+				if (x > 16) { currentX = floor(x / chunkSize); }
+				if (y > 16) { currentY = floor(y / chunkSize); }
+				int localX = x - (currentX * chunkSize);
+				int localY = y - (currentY * chunkSize);
+				//get current chunk in array
+				Matrix tmp = noisey.getMatrix(currentX, currentY);
+				double curVal = tmp.get(localX, localY);
+				output_data[count] = curVal;
+				count++;
+			}
+		}
+
+		cout << "###################################################################################################" << endl;
+		cout << "Write file" << endl;
 		// writes data back to .pgm file stored in outputFileName
 		char* outputFileName = "logo_restored.pgm";
 		// Use Q = 255 for greyscale images and 1 for binary images.
 		int Q = 255;
-		WritePGMMatrix(outputFileName, shuffled, M, M, Q);
+		WritePGM(outputFileName, output_data, M, M, Q);
 	}
 
-	cout << "Done, type `y` to open image, `n` to exit (and press enter)  -------------------------------------------" << endl;
+	cout << "###################################################################################################" << endl;
+	cout << "Done, type `y` to open image, `n` to exit (and press enter)" << endl;
 
 	char option = getchar();
 
@@ -162,15 +182,6 @@ double* readTXT(char *fileName, int sizeR, int sizeC)
 
 		return 0;
 	}
-}
-
-// convert data from double to .pgm stored in filename
-void WritePGMMatrix(char *filename, Matrix *data, int sizeR, int sizeC, int Q)
-{
-	double* writeData = 0;
-	cout << *data.getM();
-
-	//WritePGM(filename, writeData, M, M, Q);
 }
 
 // convert data from double to .pgm stored in filename

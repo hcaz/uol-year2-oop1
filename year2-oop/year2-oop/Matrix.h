@@ -16,9 +16,6 @@ public:
 	//operator overloads
 	Matrix operator+(const Matrix& other);
 	Matrix operator=(const Matrix& other);
-	//Matrix operator/(const Matrix& other);
-	//Matrix operator*(const Matrix& other);
-	//Matrix operator-(const Matrix& other);
 	//functions
 	int getM();
 	int getN();
