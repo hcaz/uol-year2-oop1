@@ -9,10 +9,6 @@
 
 using namespace std;
 
-// Input data are provided in .txt format and can be converted to .pgm files for visualization
-// Download (free) ImageJ for plotting images in .pgm format
-// http://rsb.info.nih.gov/ij/download.html
-
 // Reads .txt file representing an image of R rows and C Columns stored in filename 
 // and converts it to a 1D array of doubles of size R*C
 // Memory allocation is performed inside readTXT
