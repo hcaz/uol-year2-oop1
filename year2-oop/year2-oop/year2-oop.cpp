@@ -136,6 +136,7 @@ int main()
 		// Use Q = 255 for greyscale images and 1 for binary images.
 		int Q = 255;
 		WritePGM(outputFileName, output_data, M, M, Q);
+		delete[] output_data;
 	}
 
 	cout << "###################################################################################################" << endl;
