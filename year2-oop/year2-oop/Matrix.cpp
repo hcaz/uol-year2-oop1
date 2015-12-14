@@ -129,53 +129,17 @@ double Matrix::update(int i, int j, int value)
 	return true;
 }
 
-Matrix Matrix::getBlock(int start_row, int end_row, int start_column, int end_column)
+double Matrix::getValue(int i, int j)
 {
-	//set number of rows and columns in the subimage
-	int rows = (end_row - start_row) + 1;
-	int columns = (end_column - start_column) + 1;
-	//reserve the memory for data extracted from the main image
-	double* tempData = new double[rows*columns];
-
-	//variable to set the new array index
-	int count = 0;
-
-	//iterate through the image data, extracting the values according to the rows/columns
-	for (int x = start_row; x < (rows + start_row); x++)
-	{
-		for (int y = start_column; y < (columns + start_column); y++)
-		{
-			tempData[count] = get(x, y);
-			count++;
+	Matrix tmp = _data2[(i*_N) + j];
+	int M = tmp.getM();
+	int value = 0;
+	for (int y = 0; y < M - 1; y++) {
+		for (int x = 0; x < M - 1; x++) {
+			value = value + tmp.get(y, x);
 		}
 	}
-
-	//create a temporary matrix based on the row/column/data extracted
-	Matrix temp(rows, columns, tempData);
-	//delete the heap memory reserved for the extracted data
-	delete[] tempData;
-
-	//return the temporary matrix
-	return temp;
-}
-
-Matrix Matrix::add(const Matrix& other)
-{
-	//create temporary array of row*colum size
-	double* data = new double[other._M*other._N];
-
-	//fill the array with other._data
-	for (int x = 0; x < (other._M*other._N); x++)
-	{
-		data[x] = this->_data[x] + other._data[x];
-	}
-
-	//create a temporary Matrix object with the row/column/data info
-	Matrix temp(other._M, other._N, data);
-	//delete the data array (which we can do as the array is 'deep copied' when 'temp' is created
-	delete[] data;
-
-	return temp;
+	return value;
 }
 
 double* Matrix::getData()

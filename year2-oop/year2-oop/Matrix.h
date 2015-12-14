@@ -23,8 +23,7 @@ public:
 	Matrix getMatrix(int i, int j);
 	double update(int i, int j, int x, int y, int value);
 	double update(int i, int j, int value);
-	Matrix getBlock(int startR, int endR, int startC, int endC);
-	Matrix add(const Matrix& other);
+	double getValue(int i, int j);
 	double* getData();
 	~Matrix();
 };

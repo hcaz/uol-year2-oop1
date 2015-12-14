@@ -71,6 +71,7 @@ int main()
 		}
 		Matrix shuffled(chunk, chunk, dataTotal);
 		Matrix noisey(chunk, chunk, dataTotal);
+		Matrix sorted(chunk, chunk, dataTotal);
 		delete[] data;
 		delete[] dataTotal;
 		cout << "###################################################################################################" << endl;
@@ -118,14 +119,29 @@ int main()
 		//SORT MATRIX
 		for (int y = 0; y < chunk-1; y++) {
 			for (int x = 0; x < chunk-1; x++) {
-				cout << "-->Checking cunk " << y << "x" << x;
+				cout << "-->Checking chunk " << y << "x" << x;
+				double shuffleValue = shuffled.getValue(x, y);
+				int best = 999999999;
+				int bestY = 0;
+				int bestX = 0;
 				for (int yC = 0; yC < chunk-1; yC++) {
 					for (int xC = 0; xC < chunk-1; xC++) {
-						if (true) {
-							cout << " | Matched with chunk cunk " << yC << "x" << xC << endl;
-							yC = chunk - 1;
-							xC = chunk - 1;
+						double noiseyValue = noisey.getValue(xC, yC);
+						int diff = shuffleValue - noiseyValue;
+						int squared = abs(diff * diff);
+						if (squared < best) {
+							best = squared;
+							bestY = yC;
+							bestX = xC;
 						}
+					}
+				}
+				cout << ", matched with " << bestX << "x" << bestY << endl;
+				Matrix tmp = shuffled.getMatrix(bestX, bestY);
+				for (int yC = 0; yC < tmp.getM(); yC++) {
+					for (int xC = 0; xC < tmp.getM(); xC++) {
+						double curVal = tmp.get(xC, yC);
+						sorted.update(x, y, xC, yC, curVal);
 					}
 				}
 			}
@@ -143,7 +159,7 @@ int main()
 				int localX = x - (currentX * chunkSize);
 				int localY = y - (currentY * chunkSize);
 				//get current chunk in array
-				Matrix tmp = noisey.getMatrix(currentX, currentY);
+				Matrix tmp = sorted.getMatrix(currentX, currentY);
 				double curVal = tmp.get(localX, localY);
 				output_data[count] = curVal;
 				count++;
