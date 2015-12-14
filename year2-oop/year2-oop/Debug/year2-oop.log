@@ -1,24 +1,24 @@
-﻿Build started 12/12/2015 12:00:08.
-     1>Project "E:\Programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.vcxproj" on node 2 (Build target(s)).
+﻿Build started 14/12/2015 21:36:34.
+     1>Project "C:\Users\Computing\Documents\GitHub\uol-year2-oop1\year2-oop\year2-oop\year2-oop.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Debug\year2-oop.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt "year2-oop.cpp"
          year2-oop.cpp
-     1>e:\programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(84): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-     1>e:\programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(85): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-     1>e:\programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(87): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-     1>e:\programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(102): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-     1>e:\programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(103): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-     1>e:\programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(105): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-     1>e:\programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(122): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-     1>e:\programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(123): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-     1>e:\programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(125): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\computing\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(86): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\computing\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(87): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\computing\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(89): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\computing\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(106): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\computing\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(107): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\computing\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(109): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\computing\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(143): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\computing\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(144): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\computing\documents\github\uol-year2-oop1\year2-oop\year2-oop\year2-oop.cpp(146): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Programming\uol-year2-oop1\year2-oop\Debug\year2-oop.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Programming\uol-year2-oop1\year2-oop\Debug\year2-oop.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Programming\uol-year2-oop1\year2-oop\Debug\year2-oop.lib" /MACHINE:X86 Debug\Matrix.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Computing\Documents\GitHub\uol-year2-oop1\year2-oop\Debug\year2-oop.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Computing\Documents\GitHub\uol-year2-oop1\year2-oop\Debug\year2-oop.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Computing\Documents\GitHub\uol-year2-oop1\year2-oop\Debug\year2-oop.lib" /MACHINE:X86 Debug\Matrix.obj
          Debug\stdafx.obj
          "Debug\year2-oop.obj"
-         year2-oop.vcxproj -> E:\Programming\uol-year2-oop1\year2-oop\Debug\year2-oop.exe
-     1>Done Building Project "E:\Programming\uol-year2-oop1\year2-oop\year2-oop\year2-oop.vcxproj" (Build target(s)).
+         year2-oop.vcxproj -> C:\Users\Computing\Documents\GitHub\uol-year2-oop1\year2-oop\Debug\year2-oop.exe
+     1>Done Building Project "C:\Users\Computing\Documents\GitHub\uol-year2-oop1\year2-oop\year2-oop\year2-oop.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.36
+Time Elapsed 00:00:01.12

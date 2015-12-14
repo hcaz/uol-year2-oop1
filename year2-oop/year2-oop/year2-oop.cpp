@@ -46,9 +46,11 @@ int main()
 	// .pgm image is stored in inputFileName, change the path in your program appropriately
 	char* inputFileName = "shuffled_logo.txt";
 	input_data = readTXT(inputFileName, M, M);
+	cout << "--> Read: 'shuffled_logo.txt'" << endl;
 
 	char* inputFileNameUnshuffles = "unshuffled_logo_noisy.txt";
 	input_dataUnshuffles = readTXT(inputFileNameUnshuffles, M, M);
+	cout << "--> Read: 'unshuffled_logo_noisy.txt'" << endl;
 
 	if (input_data != 0 && input_dataUnshuffles != 0) {
 		cout << "###################################################################################################" << endl;
@@ -88,7 +90,9 @@ int main()
 				count++;
 			}
 		}
+		cout << "--> Imported " << count << " values" << endl;
 		delete[] input_data;
+
 		cout << "###################################################################################################" << endl;
 		cout << "Populating noisey matrix" << endl;
 		//go through data
@@ -106,9 +110,26 @@ int main()
 				count++;
 			}
 		}
+		cout << "--> Imported " << count << " values" << endl;
 		delete[] input_dataUnshuffles;
 
+		cout << "###################################################################################################" << endl;
+		cout << "Comparing chunks" << endl;
 		//SORT MATRIX
+		for (int y = 0; y < chunk-1; y++) {
+			for (int x = 0; x < chunk-1; x++) {
+				cout << "-->Checking cunk " << y << "x" << x;
+				for (int yC = 0; yC < chunk-1; yC++) {
+					for (int xC = 0; xC < chunk-1; xC++) {
+						if (true) {
+							cout << " | Matched with chunk cunk " << yC << "x" << xC << endl;
+							yC = chunk - 1;
+							xC = chunk - 1;
+						}
+					}
+				}
+			}
+		}
 
 		cout << "###################################################################################################" << endl;
 		cout << "Converting sorted matrix to array" << endl;
@@ -130,12 +151,13 @@ int main()
 		}
 
 		cout << "###################################################################################################" << endl;
-		cout << "Write file" << endl;
+		cout << "Writing file" << endl;
 		// writes data back to .pgm file stored in outputFileName
 		char* outputFileName = "logo_restored.pgm";
 		// Use Q = 255 for greyscale images and 1 for binary images.
 		int Q = 255;
 		WritePGM(outputFileName, output_data, M, M, Q);
+		cout << "--> Write: 'logo_restored.pgm'" << endl;
 		delete[] output_data;
 	}
 
