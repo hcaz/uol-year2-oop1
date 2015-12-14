@@ -106,8 +106,13 @@ int main()
 				if (y > 16) { currentY = floor(y / chunkSize); }
 				int localX = x - (currentX * chunkSize);
 				int localY = y - (currentY * chunkSize);
+				//Remove noise
+				if (input_dataUnshuffles[count] == 255 && (input_dataUnshuffles[count+1]==0 || input_dataUnshuffles[count-1]==0)) {
+					noisey.update(currentX, currentY, localX, localY, 0);
+				} else {
+					noisey.update(currentX, currentY, localX, localY, input_dataUnshuffles[count]);
+				}
 				//get current chunk in array
-				noisey.update(currentX, currentY, localX, localY, input_dataUnshuffles[count]);
 				count++;
 			}
 		}
@@ -159,7 +164,8 @@ int main()
 				int localX = x - (currentX * chunkSize);
 				int localY = y - (currentY * chunkSize);
 				//get current chunk in array
-				Matrix tmp = sorted.getMatrix(currentX, currentY);
+				//Matrix tmp = sorted.getMatrix(currentX, currentY);
+				Matrix tmp = noisey.getMatrix(currentX, currentY);
 				double curVal = tmp.get(localX, localY);
 				output_data[count] = curVal;
 				count++;
