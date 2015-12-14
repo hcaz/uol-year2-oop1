@@ -124,7 +124,7 @@ int main()
 		//SORT MATRIX
 		for (int y = 0; y < chunk-1; y++) {
 			for (int x = 0; x < chunk-1; x++) {
-				cout << "-->Checking chunk " << y << "x" << x;
+				cout << "-->Checking chunk " << x << "x" << y;
 				double shuffleValue = shuffled.getValue(x, y);
 				int best = 999999999;
 				int bestY = 0;
@@ -164,8 +164,7 @@ int main()
 				int localX = x - (currentX * chunkSize);
 				int localY = y - (currentY * chunkSize);
 				//get current chunk in array
-				//Matrix tmp = sorted.getMatrix(currentX, currentY);
-				Matrix tmp = noisey.getMatrix(currentX, currentY);
+				Matrix tmp = sorted.getMatrix(currentX, currentY);
 				double curVal = tmp.get(localX, localY);
 				output_data[count] = curVal;
 				count++;
