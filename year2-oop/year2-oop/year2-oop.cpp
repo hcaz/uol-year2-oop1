@@ -75,7 +75,7 @@ int main()
 		delete[] data;
 		delete[] dataTotal;
 		cout << "###################################################################################################" << endl;
-		cout << "Populating shuffled matrix" << endl;
+		cout << "Populating data matrix * 2" << endl;
 		//go through data
 		int count = 0;
 		for (int y = 0; y < M; y++) {
@@ -88,54 +88,54 @@ int main()
 				int localY = y - (currentY * chunkSize);
 				//get current chunk in array
 				shuffled.update(currentX, currentY, localX, localY, input_data[count]);
-				count++;
-			}
-		}
-		cout << "--> Imported " << count << " values" << endl;
-		delete[] input_data;
-
-		cout << "###################################################################################################" << endl;
-		cout << "Populating noisey matrix" << endl;
-		//go through data
-		count = 0;
-		for (int y = 0; y < M; y++) {
-			for (int x = 0; x < M; x++) {
-				double currentX = 0;
-				double currentY = 0;
-				if (x > 16) { currentX = floor(x / chunkSize); }
-				if (y > 16) { currentY = floor(y / chunkSize); }
-				int localX = x - (currentX * chunkSize);
-				int localY = y - (currentY * chunkSize);
 				//Remove noise
-				if (input_dataUnshuffles[count] == 255 && (input_dataUnshuffles[count+1]==0 || input_dataUnshuffles[count-1]==0)) {
+				if (input_dataUnshuffles[count] == 255 && (input_dataUnshuffles[count + 1] == 0 || input_dataUnshuffles[count - 1] == 0)) {
 					noisey.update(currentX, currentY, localX, localY, 0);
-				} else {
+				}
+				else {
 					noisey.update(currentX, currentY, localX, localY, input_dataUnshuffles[count]);
 				}
-				//get current chunk in array
 				count++;
 			}
 		}
-		cout << "--> Imported " << count << " values" << endl;
+		cout << "--> Imported " << count*2 << " values" << endl;
+		delete[] input_data;
 		delete[] input_dataUnshuffles;
 
 		cout << "###################################################################################################" << endl;
 		cout << "Comparing chunks" << endl;
 		//SORT MATRIX
-		for (int y = 0; y < chunk-1; y++) {
-			for (int x = 0; x < chunk-1; x++) {
+		for (int y = 0; y < chunk; y++) {
+			for (int x = 0; x < chunk; x++) {
 				cout << "-->Checking chunk " << x << "x" << y;
-				double shuffleValue = shuffled.getValue(x, y);
-				int best = 999999999;
+				//double shuffleValue = shuffled.getValue(x, y);
+				int best = 0;
 				int bestY = 0;
 				int bestX = 0;
-				for (int yC = 0; yC < chunk-1; yC++) {
-					for (int xC = 0; xC < chunk-1; xC++) {
-						double noiseyValue = noisey.getValue(xC, yC);
+				for (int yC = 0; yC < chunk; yC++) {
+					for (int xC = 0; xC < chunk; xC++) {
+						/*double noiseyValue = noisey.getValue(xC, yC);
 						int diff = shuffleValue - noiseyValue;
 						int squared = abs(diff * diff);
 						if (squared < best) {
-							best = squared;
+						best = squared;
+						bestY = yC;
+						bestX = xC;
+						}*/
+						Matrix tmp1 = shuffled.getMatrix(x, y);
+						Matrix tmp2 = noisey.getMatrix(xC, yC);
+						int match = 0;
+						for (int yR = 0; yR < chunkSize - 1; yR++) {
+							for (int xR = 0; xR < chunkSize - 1; xR++) {
+								double currndS = tmp1.get(xR, yR);
+								double currndN = tmp2.get(xR, yR);
+								if (currndS == currndN) {
+									match = match + 1;
+								}
+							}
+						}
+						if (match > best) {
+							best = match;
 							bestY = yC;
 							bestX = xC;
 						}
@@ -208,7 +208,7 @@ double* readTXT(char *fileName, int sizeR, int sizeC)
 		{
 			if (i>sizeR*sizeC - 1) break;
 			myfile >> *(data + i);
-		
+
 			//cout << *(data+i) << ' '; // This line display the converted data on the screen, you may comment it out. 
 			i++;
 		}
