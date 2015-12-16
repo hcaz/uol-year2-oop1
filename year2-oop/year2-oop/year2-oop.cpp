@@ -86,25 +86,11 @@ int main()
 				if (y > 16) { currentY = floor(y / chunkSize); }
 				int localX = x - (currentX * chunkSize);
 				int localY = y - (currentY * chunkSize);
-				/*if (input_data[count] > 10) {
-					input_data[count] = 255;
-				}
-				else {
-					input_data[count] = 0;
-				}
-				if (input_dataUnshuffles[count] > 10) {
-					input_dataUnshuffles[count] = 255;
-				}
-				else {
-					input_dataUnshuffles[count] = 0;
-				}*/
 				//get current chunk in array
 				shuffled.update(currentX, currentY, localX, localY, input_data[count]);
 				//Remove noise
 				if (input_dataUnshuffles[count] == 255 && (input_dataUnshuffles[count + 1] == 0 || input_dataUnshuffles[count - 1] == 0)) {
 					noisey.update(currentX, currentY, localX, localY, 0);
-				}else if (input_dataUnshuffles[count] == 0 && (input_dataUnshuffles[count + 1] == 255 || input_dataUnshuffles[count - 1] == 255)) {
-					noisey.update(currentX, currentY, localX, localY, 255);
 				} else {
 					noisey.update(currentX, currentY, localX, localY, input_dataUnshuffles[count]);
 				}
@@ -121,14 +107,13 @@ int main()
 		for (int y = 0; y < chunk; y++) {
 			for (int x = 0; x < chunk; x++) {
 				cout << "-->Checking chunk " << x << "x" << y;
-				double shuffleValue = shuffled.getValue(x, y);
-				//int best = 0;
+				double shuffleValue = noisey.getValue(x, y);
 				int best = 999999999;
 				int bestY = 0;
 				int bestX = 0;
 				for (int yC = 0; yC < chunk; yC++) {
 					for (int xC = 0; xC < chunk; xC++) {
-						double noiseyValue = noisey.getValue(xC, yC);
+						double noiseyValue = shuffled.getValue(xC, yC);
 						int diff = shuffleValue - noiseyValue;
 						int squared = abs(diff * diff);
 						if (squared < best) {
@@ -136,23 +121,6 @@ int main()
 							bestY = yC;
 							bestX = xC;
 						}
-						/*Matrix tmp1 = shuffled.getMatrix(x, y);
-						Matrix tmp2 = noisey.getMatrix(xC, yC);
-						int match = 0;
-						for (int yR = 0; yR < chunkSize - 1; yR++) {
-							for (int xR = 0; xR < chunkSize - 1; xR++) {
-								double currndS = tmp1.get(xR, yR);
-								double currndN = tmp2.get(xR, yR);
-								if (currndS == currndN) {
-									match = match + 1;
-								}
-							}
-						}
-						if (match > best) {
-							best = match;
-							bestY = yC;
-							bestX = xC;
-						}*/
 					}
 				}
 				cout << ", matched with " << bestX << "x" << bestY << endl;
