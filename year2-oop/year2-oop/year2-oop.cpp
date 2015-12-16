@@ -19,6 +19,11 @@ double* readTXT(char *fileName, int sizeR, int sizeC);
 // Use Q = 255 for greyscale images and Q=1 for binary images.
 void WritePGM(char *filename, double *data, int sizeR, int sizeC, int Q);
 
+// Converts a 1D array of doubles of size R*C to .pgm image of R rows and C Columns 
+// and stores .pgm in filename
+// Use Q = 255 for greyscale images and Q=1 for binary images.
+void WritePGM(char *filename, Matrix& data, int sizeR, int sizeC, int Q, int C);
+
 
 int main()
 {
@@ -137,31 +142,12 @@ int main()
 		}
 
 		cout << "###################################################################################################" << endl;
-		cout << "Converting sorted matrix to array" << endl;
-		count = 0;
-		for (int y = 0; y < M; y++) {
-			for (int x = 0; x < M; x++) {
-				double currentX = 0;
-				double currentY = 0;
-				if (x > 16) { currentX = floor(x / chunkSize); }
-				if (y > 16) { currentY = floor(y / chunkSize); }
-				int localX = x - (currentX * chunkSize);
-				int localY = y - (currentY * chunkSize);
-				//get current chunk in array
-				Matrix tmp = sorted.getMatrix(currentX, currentY);
-				double curVal = tmp.get(localX, localY);
-				output_data[count] = curVal;
-				count++;
-			}
-		}
-
-		cout << "###################################################################################################" << endl;
 		cout << "Writing file" << endl;
 		// writes data back to .pgm file stored in outputFileName
 		char* outputFileName = "logo_restored.pgm";
 		// Use Q = 255 for greyscale images and 1 for binary images.
 		int Q = 255;
-		WritePGM(outputFileName, output_data, M, M, Q);
+		WritePGM(outputFileName, sorted, M, M, Q, chunkSize);
 		cout << "--> Write: 'logo_restored.pgm'" << endl;
 		delete[] output_data;
 	}
@@ -222,6 +208,59 @@ void WritePGM(char *filename, double *data, int sizeR, int sizeC, int Q)
 
 	for (i = 0; i<sizeR*sizeC; i++)
 		image[i] = (unsigned char)data[i];
+
+	myfile.open(filename, ios::out | ios::binary | ios::trunc);
+
+	if (!myfile) {
+		cout << "Can't open file: " << filename << endl;
+		exit(1);
+	}
+
+	myfile << "P5" << endl;
+	myfile << sizeC << " " << sizeR << endl;
+	myfile << Q << endl;
+
+	myfile.write(reinterpret_cast<char *>(image), (sizeR*sizeC)*sizeof(unsigned char));
+
+	if (myfile.fail()) {
+		cout << "Can't write image " << filename << endl;
+		exit(0);
+	}
+
+	myfile.close();
+
+	delete[] image;
+
+}
+
+// convert data from double to .pgm stored in filename
+void WritePGM(char *filename, Matrix& data, int sizeR, int sizeC, int Q, int C)
+{
+
+	int i;
+	unsigned char *image;
+	ofstream myfile;
+
+	image = (unsigned char *) new unsigned char[sizeR*sizeC];
+
+	// convert the integer values to unsigned char
+
+	int count = 0;
+	for (int y = 0; y < sizeR; y++) {
+		for (int x = 0; x < sizeR; x++) {
+			double currentX = 0;
+			double currentY = 0;
+			if (x > 16) { currentX = floor(x / C); }
+			if (y > 16) { currentY = floor(y / C); }
+			int localX = x - (currentX * C);
+			int localY = y - (currentY * C);
+			//get current chunk in array
+			Matrix tmp = data.getMatrix(currentX, currentY);
+			double curVal = tmp.get(localX, localY);
+			image[count] = curVal;
+			count++;
+		}
+	}
 
 	myfile.open(filename, ios::out | ios::binary | ios::trunc);
 
