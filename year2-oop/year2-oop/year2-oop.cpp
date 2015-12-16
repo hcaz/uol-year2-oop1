@@ -107,15 +107,16 @@ int main()
 		for (int y = 0; y < chunk; y++) {
 			for (int x = 0; x < chunk; x++) {
 				cout << "-->Checking chunk " << x << "x" << y;
-				double shuffleValue = noisey.getValue(x, y);
 				int best = 999999999;
 				int bestY = 0;
 				int bestX = 0;
 				for (int yC = 0; yC < chunk; yC++) {
 					for (int xC = 0; xC < chunk; xC++) {
-						double noiseyValue = shuffled.getValue(xC, yC);
-						int diff = shuffleValue - noiseyValue;
-						int squared = abs(diff * diff);
+						//double shuffleValue = noisey.getValue(x, y);
+						//double noiseyValue = shuffled.getValue(xC, yC);
+						//int diff = shuffleValue - noiseyValue;
+						//int squared = abs(diff * diff);
+						int squared = noisey.getSSD(x, y, shuffled.getMatrix(xC, yC));
 						if (squared < best) {
 							best = squared;
 							bestY = yC;
@@ -129,6 +130,7 @@ int main()
 					for (int xC = 0; xC < tmp.getM(); xC++) {
 						double curVal = tmp.get(xC, yC);
 						sorted.update(x, y, xC, yC, curVal);
+						shuffled.update(bestX, bestY, xC, yC, 999);
 					}
 				}
 			}

@@ -129,14 +129,18 @@ double Matrix::update(int i, int j, int value)
 	return true;
 }
 
-double Matrix::getValue(int i, int j)
+double Matrix::getSSD(int i, int j, Matrix& tmp2)
 {
 	Matrix tmp = _data2[(i*_N) + j];
 	int M = tmp.getM();
 	int value = 0;
 	for (int y = 0; y < M - 1; y++) {
 		for (int x = 0; x < M - 1; x++) {
-			value = value + tmp.get(y, x);
+			int val = tmp.get(x, y);
+			int val2 = tmp2.get(x, y);
+			int diff = val - val2;
+			int squared = abs(diff * diff);
+			value = value + squared;
 		}
 	}
 	return value;

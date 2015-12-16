@@ -23,7 +23,7 @@ public:
 	Matrix getMatrix(int i, int j);
 	double update(int i, int j, int x, int y, int value);
 	double update(int i, int j, int value);
-	double getValue(int i, int j);
+	double getSSD(int i, int j, Matrix& compare);
 	double* getData();
 	~Matrix();
 };
